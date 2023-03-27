@@ -1,0 +1,46 @@
+@font-face {
+  font-family: FakePearl-Regular;
+  src: url(https://cdn.jsdelivr.net/gh/max32002/FakePearl@1.1/webfont/FakePearl-Regular.woff2) format("woff2")
+  , url(https://cdn.jsdelivr.net/gh/max32002/FakePearl@1.1/webfont/FakePearl-Regular.woff) format("woff");
+}
+
+body{
+  font-family: 'FakePearl-Regular';
+  padding: 0 !important;
+  overflow: auto !important;
+}
+
+/* 修改滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 修改滾動條滑塊樣式 */
+::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: 4px;
+}
+
+img {
+    height: 100%;
+    display: block;
+    object-fit: cover;
+   
+}
+
+.hoverImg{
+  img{
+    transition: .5s;
+  }
+&:hover img{
+  transform: scale(1.2);
+}
+
+}
+
+.title {
+    color: $primary;
+  letter-spacing: 5px;
+
+}
+  
