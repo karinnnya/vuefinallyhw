@@ -187,10 +187,10 @@
 </template>
 
 <script>
-import articles from "../../stores/articles";
+import articles from "@/stores/articles";
 import { mapState, mapActions } from "pinia";
-import modalMixin from "../../mixin/modalMixin";
-import delmodalMixin from "../../mixin/delmodalMixin";
+import modalMixin from "@/mixin/modalMixin";
+import delmodalMixin from "@/mixin/delmodalMixin";
 
 export default {
   data() {

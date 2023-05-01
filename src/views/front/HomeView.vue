@@ -1,4 +1,3 @@
-<!-- eslint-disable no-irregular-whitespace -->
 <template>
   <!-- <div style="position: relative;">
   <WaveCanvasComponent style="position: absolute; top: 0; left: 0;"></WaveCanvasComponent>
@@ -55,32 +54,32 @@
         <img
           class="img-fluid position-absolute titleBubble"
           src="../../assets/images/bubble.svg"
-          alt=""
+          alt=" 圖片 "
         />
         <img
           class="img-fluid position-absolute top-50 end-0 titleBubble2"
           src="../../assets/images/bubble2.svg"
-          alt=""
+          alt=" 圖片 "
         />
         <img
           class="img-fluid position-absolute end-0 fish"
           src="../../assets/images/fish-2.svg"
-          alt=""
+          alt=" 圖片 "
         />
         <img
-          class="img-fluid position-absolute top-0 start-0 ​​turtle"
+          class="img-fluid position-absolute top-0 start-0"
           src="../../assets/images/fish-4.svg"
-          alt=""
+          alt=" 圖片 "
         />
         <img
           class="img-fluid position-absolute bottom-0 start-0 octopus"
           src="../../assets/images/fish-3.svg"
-          alt=""
+          alt=" 圖片 "
         />
         <img
           class="shark img-fluid position-absolute"
           src="../../assets/images/fish-1.svg"
-          alt=""
+          alt=" 圖片 "
         />
       </div>
 
@@ -88,7 +87,7 @@
         <div class="">
           <img src="../../assets/images/title.svg" alt="" />
         </div>
-        <h2 class="lh-lg text-center">
+        <h2 class="lh-lg homeText text-center">
           水遊館遊樂園是一個引人入勝的海洋主題樂園 <br />
           提供了豐富的活動和娛樂 <br />從大型遊樂設施到海洋動物表演<br />
           再到互動式的展覽和教育活動<br />還有許多互動式的展覽和教育活動<br />
@@ -292,12 +291,11 @@
             </h5>
             <h5 style="letter-spacing: 2px"><span> 電話：</span>00-12345678</h5>
             <h5 class="lh-base">
-              <span> 營業時間：</span> 夏季（3～10月）：8：00~17：00 <br />
-              // eslint-disable-next-line no-irregular-whitespace 　　　　　
+              <span> 營業時間：</span><br />夏季（3～10月）：8：00~17：00 <br />
+
               冬季（11～2月）：9：00~17：00
             </h5>
           </div>
-          <div class="btn"></div>
         </div>
       </div>
     </div>
@@ -373,7 +371,9 @@
   .homeSvg {
     bottom: -3%;
   }
-
+  .homeText {
+    font-size: 20px !important;
+  }
   // .homeNews {
   //   height: auto !important;
   // }
@@ -460,12 +460,12 @@
 </style>
 
 <script>
-import ArticlesComponent from "../../components/ArticlesComponent.vue";
-import TitleComponent from "../../components/TitleComponent.vue";
-import BubbleComponent from "../../components/BubbleComponent.vue";
+import ArticlesComponent from "@/components/ArticlesComponent.vue";
+import TitleComponent from "@/components/TitleComponent.vue";
+import BubbleComponent from "@/components/BubbleComponent.vue";
 
-import articles from "../../stores/articles";
-import produceStore from "../../stores/produceStore.js";
+import articles from "@/stores/articles";
+import produceStore from "@/stores/produceStore.js";
 
 import { mapState, mapActions } from "pinia";
 

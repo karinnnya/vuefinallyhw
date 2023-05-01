@@ -30,8 +30,7 @@ export default defineStore("login", {
           });
         })
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          Swal.fire(error);
         });
     },
     signup(i) {
@@ -89,20 +88,13 @@ export default defineStore("login", {
           router.push("/");
         })
 
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
           Swal.fire({
-            title: "帳戶密碼錯誤，請重新確認",
+            position: "top-end",
             icon: "error",
-            html: "",
-            confirmButtonText: "我知道了",
-            confirmButtonAriaLabel: "我知道了",
-
-            // 自訂按鈕 class
-            customClass: {
-              confirmButton: "btn btn-outline-info",
-            },
-            buttonsStyling: false,
+            title: "帳戶密碼錯誤，請重新確認",
+            showConfirmButton: false,
+            timer: 1000,
           });
         });
     },

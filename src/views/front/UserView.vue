@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/require-v-for-key -->
 <template>
   <div class="container pt-5">
     <div>
@@ -174,24 +173,14 @@
   </div>
 </template>
 
-<style lang="scss">
-// .checkCard {
-//   border: 1px solid black;
-//   padding: 20px;
-//   border-radius: 25px;
-// }
-</style>
-
 <script>
-import modalMixin from "../../mixin/modalMixin";
-import loginStore from "../../stores/loginStore.js";
+import modalMixin from "@/mixin/modalMixin";
+import loginStore from "@/stores/loginStore.js";
+import Swal from "sweetalert2";
 
 import axios from "axios";
 const { VITE_APP_URL } = import.meta.env;
 import { mapActions } from "pinia";
-
-// eslint-disable-next-line no-unused-vars
-// import VueQrcode from "vue-qrcode";
 
 export default {
   data() {
@@ -204,13 +193,6 @@ export default {
       user: {},
     };
   },
-  // computed: {
-  //   VueQrcode: function () {
-  //     // 在這裡實現VueQrcode計算屬性的邏輯
-  //     // eslint-disable-next-line no-undef
-  //     return someValue; // 返回計算結果
-  //   },
-  // },
   mixins: [modalMixin],
   methods: {
     ...mapActions(loginStore, ["logout"]),
@@ -232,8 +214,7 @@ export default {
           this.check = data.filter((item) => item.userId === this.userId);
         })
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          Swal.fire(error);
         });
     },
     getProductCheck() {
@@ -247,7 +228,7 @@ export default {
           this.check = data.filter((item) => item.userId === this.userId);
         })
         .catch((error) => {
-          alert(error);
+          Swal.fire(error);
         });
     },
   },

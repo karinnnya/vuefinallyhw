@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 const { VITE_APP_URL } = import.meta.env;
+import Swal from "sweetalert2";
 
 export default defineStore("articles", {
   state: () => {
@@ -23,17 +24,15 @@ export default defineStore("articles", {
           this.articles = res.data.reverse();
         })
         .catch((error) => {
-          console.log(error);
+          Swal.fire(error);
         });
     },
     newArticles(data) {
       axios
         .post(`${VITE_APP_URL}/articles`, { data })
-        .then((res) => {
-          console.log(res);
-        })
+        .then(() => {})
         .catch((error) => {
-          console.log(error);
+          Swal.fire(error);
         });
     },
 
@@ -41,26 +40,20 @@ export default defineStore("articles", {
       console.log(state, i);
       if (state) {
         let time = new Date().toLocaleDateString();
-        console.log("新增文章");
         axios
           .post(`${VITE_APP_URL}/articles`, { ...i, addDate: time })
-          .then(() => {
-            console.log("新增成功");
-          })
+          .then(() => {})
           .catch((error) => {
-            console.log(error);
+            Swal.fire(error);
           });
       } else {
         let time = new Date().toLocaleString();
-        console.log("編輯文章");
 
         axios
           .put(`${VITE_APP_URL}/articles/${i.id}`, { ...i, editTime: time })
-          .then(() => {
-            console.log("編輯成功");
-          })
+          .then(() => {})
           .catch((error) => {
-            console.log(error);
+            Swal.fire(error);
           });
       }
     },
@@ -68,11 +61,9 @@ export default defineStore("articles", {
     delArticle(i) {
       axios
         .delete(`${VITE_APP_URL}/articles/${i.id}`)
-        .then(() => {
-          console.log("刪除成功");
-        })
-        .catch(() => {
-          console.log(i);
+        .then(() => {})
+        .catch((error) => {
+          Swal.fire(error);
         });
     },
   },

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 const { VITE_APP_URL } = import.meta.env;
+import Swal from "sweetalert2";
 
 export default defineStore("produceStore", {
   state: () => {
@@ -25,34 +26,29 @@ export default defineStore("produceStore", {
 
           this.group();
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(() => {
+          Swal.fire("取得錯誤");
         });
     },
     sendProduct(newProd, i) {
       console.log(newProd, i);
       if (newProd) {
         let time = new Date().toLocaleDateString();
-        console.log("新增產品");
+
         axios
           .post(`${VITE_APP_URL}/products`, { ...i, addDate: time })
-          .then(() => {
-            console.log("新增成功");
-          })
+          .then(() => {})
           .catch((error) => {
-            console.log(error);
+            Swal.fire(error);
           });
       } else {
         let time = new Date().toLocaleString();
-        console.log("編輯產品");
 
         axios
           .put(`${VITE_APP_URL}/products/${i.id}`, { ...i, editTime: time })
-          .then(() => {
-            console.log("編輯成功");
-          })
+          .then(() => {})
           .catch((error) => {
-            console.log(error);
+            Swal.fire(error);
           });
       }
     },
@@ -60,13 +56,9 @@ export default defineStore("produceStore", {
     delProduct(i) {
       axios
         .delete(`${VITE_APP_URL}/products/${i.id}`)
-        .then(() => {
-          console.log("刪除成功");
-        })
+        .then(() => {})
         .catch((error) => {
-          console.log(i);
-
-          console.log(error);
+          Swal.fire(error);
         });
     },
 

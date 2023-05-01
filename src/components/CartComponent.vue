@@ -8,51 +8,36 @@
     </p>
     <hr />
 
-    <table class="table align-middle table-borderless">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody v-for="item in cartList.carts" :key="item.id">
-        <tr>
-          <td>
-            <img
-              :src="item.product?.imgUrls"
-              class="table-image col-2"
-              alt="產品圖片"
-              style="width: 50px"
-            />
-          </td>
-          <td>{{ item.product?.title }}</td>
-
-          <td>{{ item.product?.price }}</td>
-          <td>
-            <select
-              class="form-select-sm"
-              v-model="item.qty"
-              @change="setCartQty(this.userId, item)"
-              :disabled="loading === item.id"
-            >
-              <option :value="i" v-for="i in 20" :key="i + 123">{{ i }}</option>
-            </select>
-          </td>
-          <td>{{ item.qty * item.product?.price }}</td>
-          <td role="button">
-            <BootstrapIcon
-              icon="trash-fill"
-              class="me-1"
-              @click.prevent="delCart(this.userId, item.id)"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div class="row mb-4" v-for="item in cartList.carts" :key="item.id">
+      <div class="col-2">
+        <img
+          :src="item.product?.imgUrls"
+          class="table-image"
+          alt="產品圖片"
+          style="width: 50px"
+        />
+      </div>
+      <div class="col-3 text-truncate">{{ item.product?.title }}</div>
+      <div class="col-2">{{ item.product?.price }}</div>
+      <div class="col-2">
+        <select
+          class="form-select-sm"
+          v-model="item.qty"
+          @change="setCartQty(this.userId, item)"
+          :disabled="loading === item.id"
+        >
+          <option :value="i" v-for="i in 20" :key="i + 123">{{ i }}</option>
+        </select>
+      </div>
+      <div class="col-2">{{ item.qty * item.product?.price }}</div>
+      <div class="col-1" role="button">
+        <BootstrapIcon
+          icon="trash-fill"
+          class="me-1"
+          @click.prevent="delCart(this.userId, item.id)"
+        />
+      </div>
+    </div>
     <hr />
     <h5 class="text-end">總金額：{{ totalPrice }} 元</h5>
     <div style="margin-left: 75%; margin-top: 10%">

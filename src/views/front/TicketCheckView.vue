@@ -25,13 +25,14 @@
         <h4 class="fw-bold text-primary">
           <BootstrapIcon icon="calendar4-event " class="me-1" />選擇日期：
         </h4>
-        <datepicker
+
+        <VueDatePicker
           v-model="selectedDate"
           :min-date="minDate"
           :max-date="maxDate"
-          :disabled-dates="disabledDates"
-        >
-        </datepicker>
+          :enable-time-picker="false"
+          auto-apply
+        ></VueDatePicker>
 
         <h4 class="mt-3 fw-bold text-primary">
           <BootstrapIcon icon="ticket-perforated-fill" class="me-1" />選擇票券：
@@ -56,12 +57,12 @@
                   @change="qtyTicket(item)"
                 >
                   <option
-                    :value="i"
-                    v-for="i in 20"
-                    :key="i + 123"
+                    :value="index"
+                    v-for="(i, index) in 20"
+                    :key="index"
                     :selected="i === 0"
                   >
-                    {{ i }}
+                    {{ index }}
                   </option>
                 </select>
               </td>
@@ -107,35 +108,38 @@
             <div>
               <div>
                 <input
+                  id="pay_1"
                   type="radio"
                   name="ticketPay"
                   value="信用卡"
                   v-model="ticketPay"
                   checked
                 />
-                <label>
+                <label for="pay_1">
                   <p class="ps-2">信用卡</p>
                 </label>
               </div>
               <div>
                 <input
+                  id="pay_2"
                   type="radio"
                   name="ticketPay"
                   value="ATM代碼轉帳"
                   v-model="ticketPay"
                 />
-                <label>
+                <label for="pay_2">
                   <p class="ps-2">ATM代碼轉帳</p>
                 </label>
               </div>
               <div>
                 <input
+                  id="pay_3"
                   type="radio"
                   name="ticketPay"
                   value="超商代碼繳費"
                   v-model="ticketPay"
                 />
-                <label>
+                <label for="pay_3">
                   <p class="ps-2">超商代碼繳費</p>
                 </label>
               </div>
@@ -210,16 +214,18 @@
 </style>
 
 <script>
-import ticketStore from "../../stores/ticketStore.js";
-import TitleComponent from "../../components/TitleComponent.vue";
+import ticketStore from "@/stores/ticketStore.js";
+import TitleComponent from "@/components/TitleComponent.vue";
 
 import axios from "axios";
 import Swal from "sweetalert2";
 const { VITE_APP_URL } = import.meta.env;
 import { mapState } from "pinia";
 
-import Datepicker from "vue3-datepicker";
-import { addDays, endOfMonth, isBefore, isAfter } from "date-fns";
+import { addDays, endOfMonth } from "date-fns";
+
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   data() {
@@ -229,37 +235,13 @@ export default {
       ticketDate: "",
       ticketPay: "",
       ticketOrder: [],
-      selectedDate: new Date(),
-
-      today: new Date(),
+      selectedDate: addDays(new Date(), 1),
       minDate: addDays(new Date(), 1),
       maxDate: endOfMonth(addDays(new Date(), 30)),
     };
   },
-  watch: {
-    selectedDate(newValue) {
-      if (isBefore(newValue, this.minDate) || isAfter(newValue, this.maxDate)) {
-        this.selectedDate = this.minDate;
-      }
-    },
-  },
   computed: {
     ...mapState(ticketStore, ["loading", "ticketData"]),
-
-    disabledDates() {
-      const disabledDates = [];
-      const startDate = this.minDate;
-      const endDate = this.maxDate;
-
-      for (let i = startDate; i <= endDate; i.setDate(i.getDate() + 1)) {
-        const date = new Date(i);
-        if (isBefore(date, this.minDate) || isAfter(date, this.maxDate)) {
-          disabledDates.push(date);
-        }
-      }
-
-      return disabledDates;
-    },
 
     total() {
       return this.ticketOrder.reduce(
@@ -269,7 +251,7 @@ export default {
     },
   },
   components: {
-    Datepicker,
+    VueDatePicker,
     TitleComponent,
   },
   methods: {
@@ -300,17 +282,11 @@ export default {
       } else {
         if (!Object.values(this.ticketOrder).length) {
           Swal.fire({
-            title: "請選擇票券",
+            position: "top-end",
             icon: "error",
-            html: "",
-            confirmButtonText: "我知道了",
-            confirmButtonAriaLabel: "我知道了",
-
-            // 自訂按鈕 class
-            customClass: {
-              confirmButton: "btn btn-outline-info",
-            },
-            buttonsStyling: false, // 是否使用sweetalert按鈕樣式（預設為true）
+            title: "請選擇票券",
+            showConfirmButton: false,
+            timer: 700,
           });
         } else {
           this.state = false;
@@ -339,14 +315,12 @@ export default {
           data,
         })
         .then(() => {
-          // console.log('訂單新增成功')
           this.checkId = id;
           this.ticketOrder = [];
         })
 
-        .catch((error) => {
-          console.log(error);
-          alert(error);
+        .catch(() => {
+          Swal.fire("發生錯誤請稍後再試");
         });
     },
   },

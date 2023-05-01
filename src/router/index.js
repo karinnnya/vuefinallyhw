@@ -3,10 +3,27 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to) {
+    if (
+      to.fullPath.match("/") ||
+      to.fullPath.match("index") ||
+      to.fullPath.match("product") ||
+      to.fullPath.match("article") ||
+      to.fullPath.match("login") ||
+      to.fullPath.match("user") ||
+      to.fullPath.match("ticket") ||
+      to.fullPath.match("check")
+    ) {
+      return {
+        top: 0,
+      };
+    }
+    return {};
+  },
   routes: [
     {
       path: "/",
-      component: () => import("../views/front/ForntView.vue"),
+      component: () => import("../views/front/FrontView.vue"),
 
       children: [
         {
@@ -15,26 +32,37 @@ const router = createRouter({
         },
         {
           path: "products",
+          name: "products",
           component: () => import("../views/front/ProductsView.vue"),
         },
         {
           path: "articles",
+          name: "articles",
+
           component: () => import("../views/front/ArticlesView.vue"),
         },
         {
           path: "login",
+          name: "login",
+
           component: () => import("../views/front/LoginView.vue"),
         },
         {
           path: "user",
+          name: "user",
+
           component: () => import("../views/front/UserView.vue"),
         },
         {
           path: "ticket",
+          name: "ticket",
+
           component: () => import("../views/front/TicketCheckView.vue"),
         },
         {
           path: "check",
+          name: "check",
+
           component: () => import("../views/front/CheckView.vue"),
         },
       ],

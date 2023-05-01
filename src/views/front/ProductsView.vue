@@ -4,7 +4,7 @@
 
     <button
       type="button"
-      class="btn btn-outline-secondary border border-secondary border-4 cartBtn"
+      class="btn btn-outline-secondary border border-secondary border-4 cartBtn shadow"
       style="
         z-index: 1;
         position: fixed;
@@ -40,7 +40,7 @@
         ></button>
       </div>
       <div class="offcanvas-body">
-        <CartComponent></CartComponent>
+        <CartComponent />
       </div>
     </div>
 
@@ -49,17 +49,17 @@
       class="text-center mt-5 mb-5"
     ></TitleComponent>
 
-    <ProductComponent></ProductComponent>
+    <ProductComponent />
   </div>
 </template>
 
 <script>
-import TitleComponent from "../../components/TitleComponent.vue";
-import ProductComponent from "../../components/ProductComponent.vue";
-import CartComponent from "../../components/CartComponent.vue";
+import TitleComponent from "@/components/TitleComponent.vue";
+import ProductComponent from "@/components/ProductComponent.vue";
+import CartComponent from "@/components/CartComponent.vue";
 
 import { mapState, mapActions } from "pinia";
-import produceStore from "../../stores/produceStore.js";
+import produceStore from "@/stores/produceStore.js";
 
 export default {
   data() {

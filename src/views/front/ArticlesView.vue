@@ -6,6 +6,7 @@
     ></TitleComponent>
     <div class="d-flex justify-content-center mb-3">
       <button
+        type="button"
         class="btn me-3 rounded-pill btn-outline-primary"
         :class="{ active: selectedKind === '活動消息' }"
         @click="selectKind('活動消息')"
@@ -13,6 +14,7 @@
         活動消息
       </button>
       <button
+        type="button"
         class="btn me-3 rounded-pill btn-outline-secondary"
         :class="{ active: selectedKind === '線上商城' }"
         @click="selectKind('線上商城')"
@@ -20,6 +22,7 @@
         線上商城
       </button>
       <button
+        type="button"
         class="btn rounded-pill btn-outline-info"
         :class="{ active: selectedKind === '園區公告' }"
         @click="selectKind('園區公告')"
@@ -32,13 +35,7 @@
 
     <div class="pagination justify-content-center mt-3">
       <button
-        class="page-link"
-        :disabled="currentPage === 1"
-        @click="currentPage--"
-      >
-        上一頁
-      </button>
-      <button
+        type="button"
         class="page-link"
         v-for="i in pageCount"
         :key="i"
@@ -47,22 +44,15 @@
       >
         {{ i }}
       </button>
-      <button
-        class="page-link"
-        :disabled="currentPage === pageCount"
-        @click="currentPage++"
-      >
-        下一頁
-      </button>
     </div>
   </div>
 </template>
 
 <script>
-import TitleComponent from "../../components/TitleComponent.vue";
-import ArticlesComponent from "../../components/ArticlesComponent.vue";
+import TitleComponent from "@/components/TitleComponent.vue";
+import ArticlesComponent from "@/components/ArticlesComponent.vue";
 
-import articles from "../../stores/articles";
+import articles from "@/stores/articles";
 import { mapState, mapActions } from "pinia";
 
 export default {
@@ -95,6 +85,8 @@ export default {
         articles = articles.filter(
           (articles) => articles.kind === this.selectedKind
         );
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.currentPage = 1;
       }
       return articles;
     },

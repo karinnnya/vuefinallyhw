@@ -154,6 +154,7 @@ import { defineRule, Field, ErrorMessage, configure, Form } from "vee-validate";
 import { required } from "@vee-validate/rules";
 import { localize, setLocale } from "@vee-validate/i18n";
 import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
+import Swal from "sweetalert2";
 
 defineRule("required", required);
 // defineRule('email', email)
@@ -166,9 +167,9 @@ configure({
 setLocale("zh_TW");
 //
 
-import TitleComponent from "../../components/TitleComponent.vue";
-import ProgressComponent from "../../components/progressComponent.vue";
-import cartStore from "../../stores/cartStore.js";
+import TitleComponent from "@/components/TitleComponent.vue";
+import ProgressComponent from "@/components/progressComponent.vue";
+import cartStore from "@/stores/cartStore.js";
 import { mapState, mapActions } from "pinia";
 
 import axios from "axios";
@@ -222,8 +223,7 @@ export default {
           this.delCartAll(this.userId);
         })
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          Swal.fire(error);
         });
     },
     onSubmit() {

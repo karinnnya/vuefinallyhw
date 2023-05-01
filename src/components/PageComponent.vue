@@ -1,6 +1,7 @@
 <template>
   <div class="pagination justify-content-center mt-3">
     <button
+      type="button"
       class="page-link"
       :disabled="currentPage === 1"
       @click="updateCurrentPage(currentPage - 1)"
@@ -8,6 +9,7 @@
       上一頁
     </button>
     <button
+      type="button"
       class="page-link"
       v-for="i in pageCount"
       :key="i"
@@ -17,6 +19,7 @@
       {{ i }}
     </button>
     <button
+      type="button"
       class="page-link"
       :disabled="currentPage === pageCount"
       @click="updateCurrentPage(currentPage + 1)"

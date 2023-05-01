@@ -5,7 +5,12 @@
       v-for="temp in data"
       :key="temp.id"
     >
-      <div class="card" style="height: 100%">
+      <div
+        class="card"
+        style="height: 100%"
+        role="button"
+        @click="openarticles(temp)"
+      >
         <div>
           <img
             :src="temp.imgurl"
@@ -30,9 +35,7 @@
           </h4>
           <p class="card-text text-truncate">{{ temp.content }}</p>
 
-          <a role="button" class="text-black-50" @click="openarticles(temp)"
-            >了解更多</a
-          >
+          <a role="button" class="text-black-50">了解更多</a>
         </div>
       </div>
     </div>

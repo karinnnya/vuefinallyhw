@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-2">
+    <div class="col-12 col-md-2">
       <ul class="list-group text-center">
         <li class="list-group-item bg-secondary fw-bold">商品分類</li>
         <li
@@ -27,8 +27,8 @@
         </li>
       </ul>
     </div>
-    <div class="col-10">
-      <div class="d-flex flex-column justify-content-md-between">
+    <div class="col-12 col-md-10">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between">
         <select v-model="ascending">
           <option value="" disabled>排序方式</option>
           <option value="">最新上架</option>
@@ -64,13 +64,13 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">{{ product.title }}</h5>
+              <h5 class="card-title text-truncate">{{ product.title }}</h5>
               <p class="card-text">$ {{ product.price }} 元</p>
 
               <div v-if="product.sell">
                 <button
                   type="button"
-                  class="btn btn-secondary text-white"
+                  class="btn btn-secondary"
                   @click.prevent="addBtnnn(product.id)"
                   v-if="!addBtn"
                 >
@@ -108,32 +108,18 @@
   <div class="pagination justify-content-center mt-3">
     <button
       class="page-link"
-      :disabled="currentPage === 1"
-      @click="currentPage--"
-    >
-      上一頁
-    </button>
-    <button
-      class="page-link"
       v-for="i in pageCount"
       :key="i"
       :class="{ 'bg-secondary text-white': currentPage === i }"
-      @click="currentPage = i"
+      @click="goToPage(i)"
     >
       {{ i }}
-    </button>
-    <button
-      class="page-link"
-      :disabled="currentPage === pageCount"
-      @click="currentPage++"
-    >
-      下一頁
     </button>
   </div>
 
   <!-- Modal -->
   <div
-    class="modal fade"
+    class="modal fade productInfo"
     ref="modal"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
@@ -214,6 +200,12 @@
 .productBtn:hover::after {
   bottom: 3px;
 }
+
+@media (max-width: 992px) {
+  .productInfo {
+    height: 100vh !important;
+  }
+}
 </style>
 
 <script>
@@ -221,6 +213,8 @@ import produceStore from "../stores/produceStore.js";
 import cartStore from "../stores/cartStore.js";
 import { mapState, mapActions } from "pinia";
 import modalMixin from "../mixin/modalMixin";
+import Swal from "sweetalert2";
+import router from "../router";
 
 export default {
   data() {
@@ -254,6 +248,7 @@ export default {
     paginatedProducts() {
       const startIndex = (this.currentPage - 1) * this.onePage;
       const endIndex = startIndex + this.onePage;
+
       return this.filteredProducts.slice(startIndex, endIndex);
     },
 
@@ -264,10 +259,18 @@ export default {
         products = products.filter(
           (product) => product.group === this.selectedCategory
         );
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.currentPage = 1;
+        // eslint-disable-next-line vue/no-async-in-computed-properties
+        this.$nextTick(() => {
+          window.scrollTo(0, 0);
+        });
       }
       if (this.searchQuery) {
         // products = products.filter(product => product.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) !== -1);
         products = products.filter((item) => item.title === this.searchQuery);
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.currentPage = 1;
       }
       return products;
     },
@@ -288,12 +291,33 @@ export default {
       });
       return this.products;
     },
-
+    goToPage(page) {
+      this.currentPage = page;
+      window.scrollTo(0, 0);
+    },
     addBtnnn(i) {
-      (this.addBtn = true),
-        setTimeout(() => {
-          this.addToCart(this.userId, i), (this.addBtn = false);
-        }, 500);
+      if (!this.userId) {
+        Swal.fire({
+          title: "請先登入會員",
+          icon: "error",
+          confirmButtonText: "前往登入",
+
+          // 自訂按鈕 class
+          customClass: {
+            confirmButton: "btn btn-outline-info",
+          },
+          buttonsStyling: false, // 是否使用sweetalert按鈕樣式（預設為true）
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push("login");
+          }
+        });
+      } else {
+        (this.addBtn = true),
+          setTimeout(() => {
+            this.addToCart(this.userId, i), (this.addBtn = false);
+          }, 500);
+      }
     },
   },
   mounted() {

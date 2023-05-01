@@ -79,7 +79,9 @@
             </div>
           </div>
 
-          <button type="onSubmit" class="btn btn-primary">加入會員</button>
+          <button type="onSubmit" class="btn btn-primary border">
+            加入會員
+          </button>
         </Form>
 
         <div></div>
@@ -129,7 +131,9 @@
               ></error-message>
             </div>
 
-            <button type="onSubmit" class="btn btn-primary">會員登入</button>
+            <button type="onSubmit" class="btn btn-primary border">
+              會員登入
+            </button>
           </Form>
         </div>
       </div>
@@ -158,7 +162,7 @@
 </template>
 
 <script>
-import loginStore from "../../stores/loginStore.js";
+import loginStore from "@/stores/loginStore.js";
 import { mapActions } from "pinia";
 import { defineRule, Field, ErrorMessage, configure, Form } from "vee-validate";
 import { required, email } from "@vee-validate/rules";

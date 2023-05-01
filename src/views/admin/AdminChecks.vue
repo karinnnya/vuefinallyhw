@@ -146,11 +146,8 @@ export default {
                 this.modal.hide();
                 this.getChecks();
               })
-              .catch((error) => {
-                console.log(error);
-              });
+              .catch(() => {});
             resolve();
-            console.log(value);
           });
         },
       });
@@ -166,9 +163,7 @@ export default {
         .then((res) => {
           this.member = res.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
 
     getChecks() {
@@ -177,9 +172,7 @@ export default {
         .then((res) => {
           this.productOrders = res.data;
         })
-        .catch((error) => {
-          console.log(error);
-        });
+        .catch(() => {});
     },
   },
   mounted() {

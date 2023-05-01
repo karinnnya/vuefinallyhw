@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 const { VITE_APP_URL } = import.meta.env;
+import Swal from "sweetalert2";
 
 export default defineStore("check", {
   state: () => {
@@ -24,14 +25,11 @@ export default defineStore("check", {
           Status: "未付款",
         })
         .then(() => {
-          console.log("訂單新增成功");
           this.checkId = id;
-          console.log(this.checkId);
         })
 
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          Swal.fire(error);
         });
     },
 
@@ -39,13 +37,10 @@ export default defineStore("check", {
       axios
         .get(`${VITE_APP_URL}/productOrders/${id}`)
         .then((res) => {
-          console.log(res.data);
           this.ok = res.data;
-          console.log(this.ok);
         })
         .catch((error) => {
-          console.log(error);
-          alert(error);
+          Swal.fire(error);
         });
     },
   },

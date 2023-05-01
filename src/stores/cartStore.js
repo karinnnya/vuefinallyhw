@@ -34,15 +34,16 @@ export default defineStore("cart", {
           .get(`${VITE_APP_URL}/cart/${userId}`)
           .then((res) => {
             this.cart = res.data.data;
-            // console.log(this.cart)
           })
           .catch((error) => {
-            console.log(error);
+            Swal.fire(error);
+
             axios
               .post(`${VITE_APP_URL}/cart`, { id: userId, userId, data: [] })
               .then(() => {})
               .catch((error) => {
-                console.log(error);
+                Swal.fire(error);
+
                 this.getCart();
               });
           });
@@ -52,43 +53,27 @@ export default defineStore("cart", {
     },
 
     addToCart(userId, productId, qty = 1) {
-      if (userId) {
-        const currenCart = this.cart.find((i) => i.productId === productId);
+      const currenCart = this.cart.find((i) => i.productId === productId);
 
-        Toast.fire({
-          icon: "success",
-          title: "成功加入購物車",
-          iconColor: "#88D1F5",
-        });
+      Toast.fire({
+        icon: "success",
+        title: "成功加入購物車",
+        iconColor: "#88D1F5",
+      });
 
-        if (currenCart) {
-          currenCart.qty += qty;
-          this.upCart(userId);
-        } else {
-          const id = this.cart.length + 1;
-
-          const temp = {
-            id,
-            productId: productId,
-            qty,
-          };
-          this.cart.push(temp);
-          this.upCart(userId);
-        }
+      if (currenCart) {
+        currenCart.qty += qty;
+        this.upCart(userId);
       } else {
-        Swal.fire({
-          title: "請先登入會員",
-          icon: "error",
-          html: "",
-          confirmButtonText: "我知道了",
-          confirmButtonAriaLabel: "我知道了",
+        const id = this.cart.length + 1;
 
-          // 自訂按鈕 class
-          customClass: {
-            confirmButton: "btn btn-outline-info",
-          },
-          buttonsStyling: false, // 是否使用sweetalert按鈕樣式（預設為true）
-        });
+        const temp = {
+          id,
+          productId: productId,
+          qty,
+        };
+        this.cart.push(temp);
+        this.upCart(userId);
       }
     },
 
@@ -112,7 +97,7 @@ export default defineStore("cart", {
           this.loading = "";
         })
         .catch((error) => {
-          console.log(error);
+          Swal.fire(error);
         });
     },
 
@@ -124,7 +109,7 @@ export default defineStore("cart", {
         })
         .then(() => {})
         .catch((error) => {
-          console.log(error);
+          Swal.fire(error);
         });
     },
 
@@ -137,7 +122,6 @@ export default defineStore("cart", {
   getters: {
     cartList: ({ cart }) => {
       if (cart === undefined) {
-        console.log("沒資料");
         return;
       } else {
         const { products } = produceStore();
