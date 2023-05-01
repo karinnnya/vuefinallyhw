@@ -20,10 +20,10 @@ git checkout -B main
 git add -A
 git commit -m 'deploy'
 
-# if you are deploying to https://rinnyanya.github.io
-# git push -f git@github.com:rinnyanya/rinnyanya.github.io.git main
+# if you are deploying to https://karinnnya.github.io
+# git push -f git@github.com:karinnnya/karinnnya.github.io.git main
 
-# if you are deploying to https://rinnyanya.github.io/
-git push -f git@github.com:rinnyanya/vuefinallyhw.git main:gh-pages
+# if you are deploying to https://karinnnya.github.io/
+git push -f git@github.com:karinnnya/vuefinallyhw.git main:gh-pages
 
 cd -
