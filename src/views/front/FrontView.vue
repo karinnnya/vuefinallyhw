@@ -56,62 +56,6 @@
     </nav>
   </header>
 
-  <!-- <header :class="headerClass" class="p-1 fixed-top">
-    <nav class="navbar-expand-lg navbar navbar-dark">
-      <div class="container d-flex justify-content-between">
-        <div>
-          <router-link class="nav-link" to="/">
-            <img
-              src="../../assets/images/LOGO2.png"
-              alt="LOGO"
-              style="width: 50px"
-            />
-          </router-link>
-        </div>
-        <div>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <router-link class="nav-link text-white" to="/products"
-                  >線上商城</router-link
-                >
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link text-white" to="/articles"
-                  >園區消息</router-link
-                >
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link text-white" to="/ticket"
-                  >票券訂購</router-link
-                >
-              </li>
-              <li class="nav-item">
-                <router-link
-                  class="btn btn-info text-white rounded-pill"
-                  :to="loginLink"
-                >
-                  {{ loginText }}</router-link
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header> -->
-
   <RouterView />
 
   <footer
@@ -227,7 +171,9 @@ export default {
 
     const navLinks = document.querySelectorAll(".nav-item");
     const menuToggle = document.getElementById("navbarNav");
-    const bsCollapse = new Collapse(menuToggle);
+    const bsCollapse = new Collapse(menuToggle, {
+      toggle: false,
+    });
     navLinks.forEach((l) => {
       l.addEventListener("click", () => {
         bsCollapse.toggle();

@@ -67,7 +67,7 @@
           alt=" 圖片 "
         />
         <img
-          class="img-fluid position-absolute top-0 start-0"
+          class="img-fluid position-absolute top-0 start-0 turtle"
           src="../../assets/images/fish-4.svg"
           alt=" 圖片 "
         />
@@ -407,6 +407,10 @@
       bottom: -5% !important;
       // left: 70% !important;
       width: 15%;
+    }
+
+    .turtle {
+      width: 30%;
     }
   }
 
