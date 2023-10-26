@@ -198,8 +198,6 @@
               class="col-4 hoverImg"
               v-for="(i, index) in homeProducts"
               :key="index"
-              data-aos="flip-left"
-              data-aos-delay="300"
             >
               <RouterLink to="/products">
                 <div
