@@ -20,7 +20,13 @@
       <tbody>
         <tr v-for="i in articles" :key="i.id">
           <td>{{ i.kind }}</td>
-          <td><img :src="i.imgurl" alt="" style="width: 100px" /></td>
+          <td>
+            <img
+              :src="i.imgurl"
+              alt="文章圖片"
+              style="width: 100px; height: 100px"
+            />
+          </td>
 
           <td>{{ i.title }}</td>
           <td>{{ i.addDate }}</td>

@@ -17,7 +17,13 @@
       <tbody>
         <tr v-for="temp in paginatedProducts" :key="temp.id">
           <td>{{ temp.group }}</td>
-          <td><img :src="temp.imgUrls" alt="" style="width: 100px" /></td>
+          <td>
+            <img
+              :src="temp.imgUrls"
+              alt="產品圖片"
+              style="width: 100px; height: 100px"
+            />
+          </td>
           <td>{{ temp.title }}</td>
           <td>{{ temp.price }}</td>
           <td>

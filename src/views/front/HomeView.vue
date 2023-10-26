@@ -47,7 +47,7 @@
       <div class="homeImg">
         <img
           class="img-fluid position-absolute titleBubble"
-          style="width: 20%;"
+          style="width: 20%"
           src="../../assets/images/bubble.svg"
           alt=" 圖片 "
         />
