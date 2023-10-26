@@ -1,0 +1,1 @@
+import{M as d}from"./bootstrap.esm-06211441.js";const l={methods:{showModal(){this.delmodal.show()},hideModal(){this.delmodal.hide()}},mounted(){this.delmodal=new d(this.$refs.delmodal)}};export{l as d};

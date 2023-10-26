@@ -1,0 +1,1 @@
+@charset "UTF-8";.productBtn:after{content:"\67e5\770b\8a73\7d30";color:#000;position:absolute;bottom:-100%;left:50%;border-radius:5px;transform:translate(-50%);background:white;padding:10px 20px;opacity:.7;transition:.5s}.productBtn:hover:after{bottom:3px}@media (max-width: 992px){.productInfo{height:100vh!important}}
